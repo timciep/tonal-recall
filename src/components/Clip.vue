@@ -4,6 +4,8 @@
       <div :class="{ 'card': true, 'red': revealed}">
         <div class="card-body">
 
+          
+
           <div class="row">
             <div class="col">
               <div class="btn-group" role="group" aria-label="Play clip!">
@@ -27,12 +29,20 @@
           </div>
 
           <br>
+
+          <div v-if="clip.notes" class="row">
+            <div class="col">
+              <div class="alert alert-warning">
+                {{ clip.notes }}
+              </div>
+            </div>
+          </div>
           
           <h6 class="card-subtitle mb-2">Hints:</h6>
           <ul class="list-group list-group-horizontal">
             <!-- Year -->
             <li class="list-group-item" v-if="!year">
-              <a href="#" @click="year = !year">Year</a>
+              <div class="btn btn-link" @click="year = !year">Year</div>
             </li>
             <li class="list-group-item" v-if="year">
               {{ clip.year }}
@@ -40,7 +50,7 @@
 
             <!-- Director -->
             <li class="list-group-item" v-if="!director">
-              <a href="#" @click="director = !director">Director</a>
+              <div class="btn btn-link" @click="director = !director">Director</div>
             </li>
             <li class="list-group-item" v-if="director">
               {{ clip.director }}
@@ -48,7 +58,7 @@
 
             <!-- Actor -->
             <li class="list-group-item" v-if="!actor">
-              <a href="#" @click="actor = !actor">Actor(s)</a>
+              <div class="btn btn-link" @click="actor = !actor">Actor(s)</div>
             </li>
             <li class="list-group-item" v-if="actor">
               {{ clip.actor }}
@@ -57,9 +67,9 @@
 
           <br>
 
-          <h5 class="card-title" v-if="revealed">{{ clip.name }}</h5>
+          <h5 class="card-title alert alert-success" v-if="revealed">{{ clip.name }}</h5>
           <h5 class="card-title" v-if="!revealed">
-            <a href="#" @click="revealed = !revealed">Reveal Title</a>
+            <div class="btn btn-link" @click="revealed = !revealed">Reveal Title</div>
           </h5>
 
         </div>
@@ -69,7 +79,7 @@
 </template>
 
 <script>
-import {Howl, Howler} from 'howler';
+import {Howl} from 'howler';
 
 export default {
   name: 'Clip',
@@ -122,8 +132,27 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.card {
+  width: 320px;
+  margin: 10px;
+  margin-bottom: 30px;
+}
+
 .red {
   background-color: #cecece;
+}
+
+.list-group-horizontal .list-group-item {
+  background-color: inherit;
+}
+
+h5.alert {
+    margin-bottom: 0;
+}
+
+.btn-link {
+  cursor: pointer;
+  padding: 0;
 }
 
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="container">
+    <div class="container-fluid">
       <h1>Dialogue Bits!</h1>
       <br>
       <div class="row">
@@ -36,8 +36,4 @@ export default {
   margin-top: 20px;
 }
 
-.card {
-  width: 22rem;
-  margin: 10px;
-}
 </style>
