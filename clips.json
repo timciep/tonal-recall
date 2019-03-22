@@ -102,5 +102,21 @@
         "director": "Sidney Lumet",
         "actor": "? and Al Pacino",
         "notes": "Submitted by Tim C."
+    },
+    "495": {
+        "name": "Alien 3 (1992)",
+        "mp3": "a3",
+        "year": "1992",
+        "director": "David Fincher",
+        "actor": "?",
+        "notes": "Submitted by ProjectGenesis"
+    },
+    "56": {
+        "name": "Project Grizzly (1996)",
+        "mp3": "grizz",
+        "year": "1996",
+        "director": "Peter Lynch",
+        "actor": "Troy Hurtubise",
+        "notes": "Submitted by FilmApe"
     }
 }
