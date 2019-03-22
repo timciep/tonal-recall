@@ -4,8 +4,6 @@
       <div :class="{ 'card': true, 'red': revealed}">
         <div class="card-body">
 
-          
-
           <div class="row">
             <div class="col">
               <div class="btn-group" role="group" aria-label="Play clip!">
@@ -32,7 +30,7 @@
 
           <div v-if="clip.notes" class="row">
             <div class="col">
-              <div class="alert alert-warning">
+              <div class="alert alert-secondary">
                 {{ clip.notes }}
               </div>
             </div>

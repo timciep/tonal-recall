@@ -15,20 +15,21 @@
         "actor": "Red",
         "notes": "Demo"
     },
-    "20": {
+    "57": {
         "name": "Ed Wood (1994)",
         "mp3": "ed-wood",
         "year": "1994",
         "director": "Tim Burton",
-        "actor": "Martin Landau"
+        "actor": "Martin Landau",
+        "notes": "Submitted by Tim C."
     },
-    "30": {
+    "55": {
         "name": "The Matrix Reloaded (2003)",
         "mp3": "mtx-reloaded",
         "year": "2003",
         "director": "Wachowski",
         "actor": "?",
-        "notes": "Submitted by Tommy"
+        "notes": "Submitted by Tommy N."
     },
     "40": {
         "name": "Miami Vice (2006)",
@@ -36,54 +37,70 @@
         "year": "2006",
         "director": "Michael Mann",
         "actor": "?",
-        "notes": "Submitted by Tommy"
+        "notes": "Submitted by Tommy N."
     },
-    "50": {
+    "500": {
         "name": "Ghostbusters 2 (1989)",
         "mp3": "gb2",
         "year": "1989",
         "director": "Ivan Reitman",
         "actor": "?",
-        "notes": "Submitted by Tommy"
+        "notes": "Submitted by Tommy N."
     },
-    "60": {
+    "480": {
         "name": "Police Academy (1984)",
         "mp3": "police-a",
         "year": "1984",
         "director": "Hugh Wilson",
         "actor": "Michael Winslow",
-        "notes": "Submitted by Tommy"
+        "notes": "Submitted by Tommy N."
     },
-    "70": {
-        "name": " ()",
-        "mp3": "",
-        "year": "",
-        "director": "",
-        "actor": "",
-        "notes": ""
+    "460": {
+        "name": "Con Air (1997)",
+        "mp3": "conair",
+        "year": "1997",
+        "director": "Simon West",
+        "actor": "Steve Eastin & ?",
+        "notes": "Submitted by Dan M."
     },
     "80": {
-        "name": " ()",
-        "mp3": "",
-        "year": "",
-        "director": "",
-        "actor": "",
-        "notes": ""
+        "name": "Catch Me If You Can (2002)",
+        "mp3": "catch",
+        "year": "2002",
+        "director": "Steven Spielberg",
+        "actor": "Walken & DiCaprio",
+        "notes": "Submitted by Tim C."
     },
     "90": {
-        "name": " ()",
-        "mp3": "",
-        "year": "",
-        "director": "",
-        "actor": "",
-        "notes": ""
+        "name": "Rushmore (1998)",
+        "mp3": "rushmore",
+        "year": "1998",
+        "director": "Wes Anderson",
+        "actor": "Luke Wilson, Jason Schwartzman",
+        "notes": "Submitted by Tim C."
     },
     "100": {
-        "name": " ()",
-        "mp3": "",
-        "year": "",
-        "director": "",
-        "actor": "",
-        "notes": ""
+        "name": "Jackie Brown (1997)",
+        "mp3": "jackie",
+        "year": "1997",
+        "director": "Quentin Tarantino",
+        "actor": "Tommy Lister, SLJ",
+        "notes": "Submitted by Tim C."
+    },
+    "110": {
+        "name": "One Flew Over the Cuckoo's Nest (1975)",
+        "mp3": "cuckoo",
+        "year": "1975",
+        "director": "Milos Forman",
+        "actor": "William Redfield",
+        "notes": "Submitted by Tim C."
+    },
+    "490": {
+        "name": "Dog Day Afternoon (1975)",
+        "mp3": "dda",
+        "year": "1975",
+        "director": "Sidney Lumet",
+        "actor": "? and Al Pacino",
+        "notes": "Submitted by Tim C."
     }
 }
