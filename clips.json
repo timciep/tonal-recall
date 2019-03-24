@@ -274,5 +274,83 @@
         "actor": "?",
         "notes": "Submitted by Dave Kralik",
         "one": true
+    },
+    "980": {
+        "name": "Crocodile Dundee II (1988)",
+        "mp3": "croc",
+        "year": "1988",
+        "director": "John Cornell",
+        "actor": "?",
+        "notes": "Submitted by Andrew James",
+        "one": true
+    },
+    "725": {
+        "name": "Indiana Jones and the Kingdom of the Crystal Skull (2008)",
+        "mp3": "indy4",
+        "year": "2008",
+        "director": "Steven Spielberg",
+        "actor": "Shia LeBeouf & Harrison Ford",
+        "notes": "Submitted by Chandan"
+    },
+    "720": {
+        "name": "The Terminator (1984)",
+        "mp3": "t1",
+        "year": "1984",
+        "director": "Jimmy C.",
+        "actor": "?",
+        "notes": "Submitted by Chandan"
+    },
+    "730": {
+        "name": "From Dusk till Dawn (1996)",
+        "mp3": "fdtd",
+        "year": "1996",
+        "director": "Robert Rodriguez",
+        "actor": "?",
+        "notes": "Submitted by zenintrude",
+        "one": true
+    },
+    "981": {
+        "name": "Alien 3 (1992)",
+        "mp3": "a3",
+        "year": "1992",
+        "director": "David Fincher",
+        "actor": "?",
+        "notes": "Submitted by ProjectGenesis"
+    },
+    "731": {
+        "name": "RoboCop (1987)",
+        "mp3": "robo",
+        "year": "1987",
+        "director": "Paul Verhoeven",
+        "actor": "?",
+        "notes": "Submitted by zenintrude",
+        "one": true
+    },
+    "732": {
+        "name": "The King of Kong (2007)",
+        "mp3": "kong",
+        "year": "2007",
+        "director": "Seth Gordon",
+        "actor": "?",
+        "notes": "Submitted by zenintrude",
+        "one": true
+    },
+    "733": {
+        "name": "Trainspotting (1996)",
+        "mp3": "trainspotting",
+        "year": "1996",
+        "director": "Danny Boyle",
+        "actor": "?",
+        "notes": "Submitted by zenintrude",
+        "one": true
+    },
+    "734": {
+        "name": "Bottle Rocket (1996)",
+        "mp3": "bottle",
+        "year": "1996",
+        "director": "Wes Anderson",
+        "actor": "?",
+        "notes": "Submitted by zenintrude",
+        "one": true
     }
 }
