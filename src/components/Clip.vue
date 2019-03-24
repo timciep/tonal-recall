@@ -60,34 +60,34 @@
       <ul class="list-group list-group-horizontal">
         <!-- Year -->
         <li class="list-group-item" v-if="!year">
-          <div class="btn btn-link" @click="year = !year">Year</div>
+          <div class="btn btn-link" @click="year = true">Year</div>
         </li>
-        <li class="list-group-item" v-if="year">
+        <li class="list-group-item hide" @click="year = false" v-if="year">
           {{ clip.year }}
         </li>
 
         <!-- Director -->
         <li class="list-group-item" v-if="!director">
-          <div class="btn btn-link" @click="director = !director">Director</div>
+          <div class="btn btn-link" @click="director = true">Director</div>
         </li>
-        <li class="list-group-item" v-if="director">
+        <li class="list-group-item hide" @click="director = false" v-if="director">
           {{ clip.director }}
         </li>
 
         <!-- Actor -->
         <li class="list-group-item" v-if="!actor && clip.actor != '?'">
-          <div class="btn btn-link" @click="actor = !actor">Actor(s)</div>
+          <div class="btn btn-link" @click="actor = true">Actor(s)</div>
         </li>
-        <li class="list-group-item" v-if="actor">
+        <li class="list-group-item hide" v-if="actor" @click="actor = false">
           {{ clip.actor }}
         </li>
       </ul>
 
       <br>
 
-      <h5 class="card-title alert alert-success" v-if="revealed">{{ clip.name }}</h5>
+      <h5 class="card-title alert alert-success hide" @click="revealed = false" v-if="revealed">{{ clip.name }}</h5>
       <h5 class="card-title" v-if="!revealed">
-        <div class="btn btn-link" @click="revealed = !revealed">Reveal Title</div>
+        <div class="btn btn-link" @click="revealed = true">Reveal Title</div>
       </h5>
 
     </div>
@@ -180,6 +180,14 @@ h5.alert {
 .btn-link {
   cursor: pointer;
   padding: 0;
+}
+
+.hide {
+  cursor: pointer;
+}
+
+.hide:hover {
+  opacity: .7;
 }
 
 </style>
