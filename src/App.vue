@@ -17,8 +17,8 @@
 
 <script>
 import Clip from './components/Clip.vue';
-import clipsJson from '../clips.json';
 var _ = require('lodash');
+const axios = require('axios');
 
 export default {
   name: 'app',
@@ -28,7 +28,7 @@ export default {
 
   data: function() {
     return {
-      clips: clipsJson,
+      clips: {},
       revealed: []
     }
   },
@@ -52,6 +52,14 @@ export default {
   },
 
   created: function(){
+    axios.get('/clips-json/' + this.$route.params.game + '.json')
+      .then((response) => {
+        this.clips = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
     this.revealed = _.concat([], this.$route.query.revealed);
     _.forEach(this.clips, (clip) => {
       clip.show = _.includes(this.revealed, clip.mp3);

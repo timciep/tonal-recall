@@ -5,9 +5,13 @@ import App from './App.vue'
 Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
-const router = new VueRouter({});
+const router = new VueRouter({
+  routes: [
+    {path: '/:game'}
+  ]
+});
 
-new Vue({
+window.Vue = new Vue({
   router: router,
   render: h => h(App),
 }).$mount('#app')
