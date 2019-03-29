@@ -85,9 +85,9 @@
 
       <br>
 
-      <h5 class="card-title alert alert-success hide" @click="revealed = false" v-if="revealed">{{ clip.name }}</h5>
+      <h5 class="card-title alert alert-success hide" @click="cover" v-if="revealed">{{ clip.name }}</h5>
       <h5 class="card-title" v-if="!revealed">
-        <div class="btn btn-link" @click="revealed = true">Reveal Title</div>
+        <div class="btn btn-link" @click="reveal">Reveal Title</div>
       </h5>
 
     </div>
@@ -116,6 +116,16 @@ export default {
   },
 
   methods: {
+    reveal: function() {
+      this.revealed = true;
+      this.$emit('reveal', this.clip.mp3);
+    },
+
+    cover: function() {
+      this.revealed = false;
+      this.$emit('cover', this.clip.mp3);
+    },
+
     playSmall: function() {
       let path = 'mp3/' + this.clip.mp3 + '/sm.mp3';
       this.playSound(path);
@@ -150,7 +160,11 @@ export default {
       this.sound.stop();
       this.playing = false;
     }
-  }
+  },
+
+   mounted: function(){
+     this.revealed = this.clip.show;
+   }
 
 }
 </script>
