@@ -3,6 +3,12 @@
     <div class="card-body">
 
       <div class="row">
+        <button class="btn">
+          <i @click="$emit('edit', clip)" class="fas fa-edit"></i>
+          </button>
+      </div>
+
+      <div class="row">
         <div class="col">
 
           <div v-if="!clip.one" class="d-inline">
@@ -107,7 +113,10 @@ export default {
       director: false,
       actor: false,
       sound: {},
-      playing: false
+      playing: false,
+      mp3Path: 'https://s3.us-east-2.amazonaws.com/audio-bits-data/games/'
+                + this.$route.params.game + '/'
+                + this.clip.mp3 + '/',
     }
   },
 
@@ -127,32 +136,47 @@ export default {
     },
 
     playSmall: function() {
-      let path = 'mp3/' + this.clip.mp3 + '/sm.mp3';
+      let path = this.mp3Path + 'sm.mp3';
       this.playSound(path);
     },
 
     playMed: function() {
-      let path = 'mp3/' + this.clip.mp3 + '/md.mp3';
+      let path = this.mp3Path + 'md.mp3';
       this.playSound(path);
     },
 
     playLong: function() {
-      let path = 'mp3/' + this.clip.mp3 + '/lg.mp3';
+      let path = this.mp3Path + 'lg.mp3';
       this.playSound(path);
     },
 
     playSound: function(path) {
       this.playing = true;
+
       if (this.sound instanceof Howl) {
         this.sound.stop();
       }
+
       console.log("playing " + path);
+
       this.sound = new Howl({
         src: [path]
       });
+
       this.sound.play();
+
       this.sound.on('end', () => {
         this.playing = false;
+      });
+
+      this.sound.on('loaderror', () => {
+        this.playing = false;
+        alert('Mp3 file does not exist.');
+      });
+
+      this.sound.on('playerror', () => {
+        this.playing = false;
+        alert('Error playing Mp3 file.');
       });
     },
 
