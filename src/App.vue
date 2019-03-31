@@ -16,12 +16,19 @@
 
         <div class="nav-item">
           <button
-            @click="this.clips.map(clip => clip.show = !clip.show)"
+            @click="clips.map(clip => clip.show = true); updateRoute();"
             type="button" 
-            class="btn btn-primary"
+            class="btn btn-success"
           >Reveal All
           </button>
+          <button
+            @click="clips.map(clip => clip.show = false); updateRoute();"
+            type="button" 
+            class="btn btn-secondary"
+          >Hide All
+          </button>
         </div>
+
 
         <!-- <div class="nav-item">
           <button
@@ -50,8 +57,7 @@
           v-for="(clip, index) in clips" 
           :key="index" 
           :clip="clip"
-          @reveal="updateRoute"
-          @cover="updateRoute"
+          @updateRevealed="updateRoute"
           @edit="editingClip = $event">
         </Clip>
 

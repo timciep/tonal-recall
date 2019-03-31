@@ -3,12 +3,6 @@
     <div class="card-body">
 
       <div class="row">
-        <button class="btn">
-          <i @click="$emit('edit', clip)" class="fas fa-edit"></i>
-          </button>
-      </div>
-
-      <div class="row">
         <div class="col">
 
           <div v-if="!clip.one" class="d-inline">
@@ -54,13 +48,21 @@
 
       <br>
 
-      <div v-if="clip.notes" class="row">
-        <div class="col">
-          <div class="alert alert-secondary">
-            {{ clip.notes }}
+      <div class="row">
+        <div class="col-10">
+          <div class="alert alert-secondary notes">
+            <span v-if="clip.notes">{{ clip.notes }}</span>
+            <span v-if="!clip.notes"><i>notes</i></span>
           </div>
         </div>
+        <div class="col-2">
+          <button @click="$emit('edit', clip)" class="btn btn-link">
+            <i class="fas fa-edit"></i>
+          </button>
+        </div>
       </div>
+
+      <br>
       
       <!-- Hints -->
       <!-- 
@@ -91,8 +93,8 @@
       -->
 
 
-      <h5 class="card-title alert alert-success hide" @click="cover" v-if="clip.show">{{ clip.name }}</h5>
-      <h5 class="card-title" v-if="!clip.show">
+      <h5 class="alert alert-info hide" @click="cover" v-if="clip.show">{{ clip.name }}</h5>
+      <h5 class="" v-if="!clip.show">
         <div class="btn btn-link" @click="reveal">Reveal Title</div>
       </h5>
 
@@ -126,12 +128,12 @@ export default {
   methods: {
     reveal: function() {
       this.clip.show = true;
-      this.$emit('reveal');
+      this.$emit('updateRevealed');
     },
 
     cover: function() {
       this.clip.show = false;
-      this.$emit('cover');
+      this.$emit('updateRevealed');
     },
 
     playSmall: function() {
@@ -198,6 +200,14 @@ export default {
   border: 1px solid rgba(0, 0, 0, 0.85);
 }
 
+/* .card-body {
+  padding: 5px 1.25rem;
+} */
+
+.alert {
+  margin-bottom: 0;
+}
+
 .red {
   background-color: #cecece;
 }
@@ -213,6 +223,10 @@ h5.alert {
 .btn-link {
   cursor: pointer;
   padding: 0;
+}
+
+.notes {
+  min-height: 50px;
 }
 
 .hide {

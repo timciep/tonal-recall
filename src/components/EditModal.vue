@@ -117,9 +117,9 @@ export default {
   },
 
   computed: {
-      showModal: function() {
-          return ! _.isEmpty(this.clip);
-      }
+    showModal: function() {
+        return ! _.isEmpty(this.clip);
+    }
   },
 
   methods: {
