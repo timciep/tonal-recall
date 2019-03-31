@@ -3,16 +3,26 @@
     <div class="container-fluid">
 
       <EditModal 
-      :clip="editingClip"
-      @close="(editingClip = {})"
-      @save="saveClips"
-      ></EditModal>
+        :clip="editingClip"
+        @close="(editingClip = {})"
+        @save="saveClips">
+      </EditModal>
 
       <nav class="navbar fixed-top navbar-light bg-dark">
-        <h1 class="navbar-brand">
-          <span class="fancy">Dialogue</span>
+        <h1 class="">
+          <span class="fancy">Audio</span>
           <span class="bits">Bits</span>
         </h1>
+
+        <div class="nav-item">
+          <button
+            @click="this.clips.map(clip => clip.show = !clip.show)"
+            type="button" 
+            class="btn btn-primary"
+          >Reveal All
+          </button>
+        </div>
+
         <!-- <div class="nav-item">
           <button
           v-if="!editing" 
@@ -29,18 +39,29 @@
             Save
           </button>
         </div> -->
+
       </nav>
 
       <br><br><br>
 
       <div class="row">
+
         <Clip 
-        v-for="(clip, index) in clips" 
-        :key="index" 
-        :clip="clip"
-        @reveal="reveal($event)"
-        @cover="unReveal($event)"
-        @edit="editingClip = $event"></Clip>
+          v-for="(clip, index) in clips" 
+          :key="index" 
+          :clip="clip"
+          @reveal="updateRoute"
+          @cover="updateRoute"
+          @edit="editingClip = $event">
+        </Clip>
+
+        <div @click="addClip" class="card card-new">
+          <div class="card-body">
+            <i class="fas fa-plus"></i>
+          </div>
+        </div>
+
+
       </div>
       
     </div>
@@ -65,26 +86,20 @@ export default {
     return {
       data: {},
       clips: {},
-      revealed: [],
       editingClip: {},
       gamePath: 'games/' + this.$route.params.game + '/',
       clipsJsonFile: 'https://s3.us-east-2.amazonaws.com/audio-bits-data/games/' + this.$route.params.game + '/game.json',
     }
   },
 
+  computed: {
+    revealed: function() {
+      return this.clips.filter(clip => clip.show != false)
+                .map(clip => clip.mp3);
+    }
+  },
+
   methods: {
-    reveal: function(value) {
-      this.revealed.push(value);
-      this.updateRoute();
-    },
-
-    unReveal: function(value) {
-      _.remove(this.revealed, function(n) {
-        return n == value;
-      });
-      this.updateRoute();
-    },
-
     updateRoute() {
       this.$router.push({query: {'revealed': this.revealed}});
     },
@@ -120,7 +135,23 @@ export default {
         }
         console.log('Uploaded: ' + path);
       });
-    }
+    },
+
+    addClip() {
+      let newClip = {
+        mp3: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+        name: "",
+        notes: "",
+        show: false,
+        // year: "",
+        // actor: "",
+        // director: "",
+      };
+
+      this.clips.push(newClip);
+
+      this.editingClip = newClip;
+    },
   },
 
   created: function() {
@@ -131,9 +162,9 @@ export default {
         this.clips = this.data.clips
 
         // Set revealed clips state, from URL params.
-        this.revealed = _.concat([], this.$route.query.revealed);
+        let initShow = _.concat([], this.$route.query.revealed);
         _.forEach(this.clips, (clip) => {
-          clip.show = _.includes(this.revealed, clip.mp3);
+          clip.show = _.includes(initShow, clip.mp3);
         });
       })
       .catch(function (error) {
@@ -153,7 +184,7 @@ export default {
 
 .fancy {
   color: white;
-  font-size: 25px;
+  font-size: 22px;
   font-family: 'Merriweather', serif;
 }
 
@@ -162,6 +193,19 @@ export default {
   font-size: 30px;
   color: white;
   background: black;
+}
+
+.navbar {
+      padding: 0 15px 0 15px
+}
+
+.card-new {
+  height: fit-content;
+  margin: 10px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(10, 70, 0, 0.85);
+  background-color: rgba(55, 130, 0, 0.18);
+  cursor: pointer;
 }
 
 </style>

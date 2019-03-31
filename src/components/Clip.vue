@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'card': true, 'red': revealed}">
+  <div :class="{ 'card': true, 'red': clip.show}">
     <div class="card-body">
 
       <div class="row">
@@ -62,9 +62,10 @@
         </div>
       </div>
       
+      <!-- Hints -->
+      <!-- 
       <h6 class="card-subtitle mb-2">Hints:</h6>
       <ul class="list-group list-group-horizontal">
-        <!-- Year -->
         <li class="list-group-item" v-if="!year">
           <div class="btn btn-link" @click="year = true">Year</div>
         </li>
@@ -72,7 +73,6 @@
           {{ clip.year }}
         </li>
 
-        <!-- Director -->
         <li class="list-group-item" v-if="!director">
           <div class="btn btn-link" @click="director = true">Director</div>
         </li>
@@ -80,19 +80,19 @@
           {{ clip.director }}
         </li>
 
-        <!-- Actor -->
         <li class="list-group-item" v-if="!actor && clip.actor != '?'">
           <div class="btn btn-link" @click="actor = true">Actor(s)</div>
         </li>
         <li class="list-group-item hide" v-if="actor" @click="actor = false">
           {{ clip.actor }}
         </li>
-      </ul>
-
+      </ul> 
       <br>
+      -->
 
-      <h5 class="card-title alert alert-success hide" @click="cover" v-if="revealed">{{ clip.name }}</h5>
-      <h5 class="card-title" v-if="!revealed">
+
+      <h5 class="card-title alert alert-success hide" @click="cover" v-if="clip.show">{{ clip.name }}</h5>
+      <h5 class="card-title" v-if="!clip.show">
         <div class="btn btn-link" @click="reveal">Reveal Title</div>
       </h5>
 
@@ -108,7 +108,6 @@ export default {
 
   data: function() {
     return {
-      revealed: false,
       year: false,
       director: false,
       actor: false,
@@ -126,13 +125,13 @@ export default {
 
   methods: {
     reveal: function() {
-      this.revealed = true;
-      this.$emit('reveal', this.clip.mp3);
+      this.clip.show = true;
+      this.$emit('reveal');
     },
 
     cover: function() {
-      this.revealed = false;
-      this.$emit('cover', this.clip.mp3);
+      this.clip.show = false;
+      this.$emit('cover');
     },
 
     playSmall: function() {
@@ -185,10 +184,6 @@ export default {
       this.playing = false;
     }
   },
-
-   mounted: function(){
-     this.revealed = this.clip.show;
-   }
 
 }
 </script>
