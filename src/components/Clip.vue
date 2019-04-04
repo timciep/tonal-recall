@@ -1,103 +1,76 @@
 <template>
-  <div :class="{ 'card': true, 'red': clip.show}">
-    <div class="card-body">
+  <div class="col-lg-4">
+    <div :class="{ 'card': true, 'red': clip.show}">
+      <div class="card-body">
 
-      <div class="row">
-        <div class="col">
+        <div class="row">
+          <div class="col">
 
-          <div v-if="!clip.one" class="d-inline">
-            <div class="btn-group" role="group" aria-label="Play clip!">
+            <div v-if="!clip.one" class="d-inline">
+              <div class="btn-group" role="group" aria-label="Play clip!">
+                <button type="button" 
+                  class="btn btn-success"
+                  @click="playSmall">
+                  <i class="fas fa-play-circle"></i> Short
+                </button>
+                <button type="button" 
+                  class="btn btn-success"
+                  @click="playMed">
+                  <i class="fas fa-play-circle"></i> Med
+                </button>
+                <button type="button" 
+                  class="btn btn-success"
+                  @click="playLong">
+                  <i class="fas fa-play-circle"></i> Long
+                </button>
+              </div>
+            </div>
+
+            <div v-if="clip.one" class="d-inline">
+              <div class="btn-group" role="group" aria-label="Play clip!">
+                <button type="button" 
+                  class="btn btn-success"
+                  @click="playLong">
+                  <i class="fas fa-play-circle"></i> Play
+                </button>
+              </div>
+            </div>
+
+            <div v-if="this.playing" class="btn-group" role="group" aria-label="Stop!">
               <button type="button" 
-                class="btn btn-success"
-                @click="playSmall">
-                <i class="fas fa-play-circle"></i> Short
-              </button>
-              <button type="button" 
-                class="btn btn-success"
-                @click="playMed">
-                <i class="fas fa-play-circle"></i> Med
-              </button>
-              <button type="button" 
-                class="btn btn-success"
-                @click="playLong">
-                <i class="fas fa-play-circle"></i> Long
+                class="btn btn-danger"
+                @click="stop">
+                <i class="fas fa-stop-circle"></i>
               </button>
             </div>
+            
           </div>
+        </div>
 
-          <div v-if="clip.one" class="d-inline">
-            <div class="btn-group" role="group" aria-label="Play clip!">
-              <button type="button" 
-                class="btn btn-success"
-                @click="playLong">
-                <i class="fas fa-play-circle"></i> Play
-              </button>
+        <br>
+
+        <div class="row">
+          <div class="col-10">
+            <div class="alert alert-secondary notes">
+              <span v-if="clip.notes">{{ clip.notes }}</span>
+              <span v-if="!clip.notes"><i>notes</i></span>
             </div>
           </div>
-
-          <div v-if="this.playing" class="btn-group" role="group" aria-label="Stop!">
-            <button type="button" 
-              class="btn btn-danger"
-              @click="stop">
-              <i class="fas fa-stop-circle"></i>
+          <div class="col-2">
+            <button @click="$emit('edit', clip)" class="btn btn-link">
+              <i class="fas fa-edit"></i>
             </button>
           </div>
-          
         </div>
+
+        <br>
+        
+        <h5 class="alert alert-info hide" @click="cover" v-if="clip.show">{{ clip.name }}</h5>
+        <h5 class="" v-if="!clip.show">
+          <div class="btn btn-link" @click="reveal">Reveal Title</div>
+        </h5>
+
       </div>
-
-      <br>
-
-      <div class="row">
-        <div class="col-10">
-          <div class="alert alert-secondary notes">
-            <span v-if="clip.notes">{{ clip.notes }}</span>
-            <span v-if="!clip.notes"><i>notes</i></span>
-          </div>
-        </div>
-        <div class="col-2">
-          <button @click="$emit('edit', clip)" class="btn btn-link">
-            <i class="fas fa-edit"></i>
-          </button>
-        </div>
-      </div>
-
-      <br>
-      
-      <!-- Hints -->
-      <!-- 
-      <h6 class="card-subtitle mb-2">Hints:</h6>
-      <ul class="list-group list-group-horizontal">
-        <li class="list-group-item" v-if="!year">
-          <div class="btn btn-link" @click="year = true">Year</div>
-        </li>
-        <li class="list-group-item hide" @click="year = false" v-if="year">
-          {{ clip.year }}
-        </li>
-
-        <li class="list-group-item" v-if="!director">
-          <div class="btn btn-link" @click="director = true">Director</div>
-        </li>
-        <li class="list-group-item hide" @click="director = false" v-if="director">
-          {{ clip.director }}
-        </li>
-
-        <li class="list-group-item" v-if="!actor && clip.actor != '?'">
-          <div class="btn btn-link" @click="actor = true">Actor(s)</div>
-        </li>
-        <li class="list-group-item hide" v-if="actor" @click="actor = false">
-          {{ clip.actor }}
-        </li>
-      </ul> 
-      <br>
-      -->
-
-
-      <h5 class="alert alert-info hide" @click="cover" v-if="clip.show">{{ clip.name }}</h5>
-      <h5 class="" v-if="!clip.show">
-        <div class="btn btn-link" @click="reveal">Reveal Title</div>
-      </h5>
-
     </div>
   </div>
 </template>
@@ -194,15 +167,10 @@ export default {
 <style scoped>
 
 .card {
-  width: 330px;
-  margin: 10px;
   margin-bottom: 30px;
   border: 1px solid rgba(0, 0, 0, 0.85);
 }
 
-/* .card-body {
-  padding: 5px 1.25rem;
-} */
 
 .alert {
   margin-bottom: 0;

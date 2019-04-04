@@ -9,44 +9,16 @@
       </EditModal>
 
       <nav class="navbar fixed-top navbar-light bg-dark">
-        <h1 class="">
-          <span class="fancy">Audio</span>
-          <span class="bits">Bits</span>
-        </h1>
+        <a class="navbar-brand"><h1>TONAL RECALL</h1></a>
 
         <div class="nav-item">
           <button
-            @click="clips.map(clip => clip.show = true); updateRoute();"
-            type="button" 
-            class="btn btn-success"
-          >Reveal All
-          </button>
-          <button
-            @click="clips.map(clip => clip.show = false); updateRoute();"
+            @click="showHide"
             type="button" 
             class="btn btn-secondary"
-          >Hide All
+          >Reveal/Hide All
           </button>
         </div>
-
-
-        <!-- <div class="nav-item">
-          <button
-          v-if="!editing" 
-          @click="editing = true"
-          type="button" 
-          class="btn btn-primary">
-            Edit
-          </button>
-          <button
-          v-if="editing" 
-          @click="editing = false"
-          type="button" 
-          class="btn btn-success">
-            Save
-          </button>
-        </div> -->
-
       </nav>
 
       <br><br><br>
@@ -61,15 +33,34 @@
           @edit="editingClip = $event">
         </Clip>
 
-        <div @click="addClip" class="card card-new">
-          <div class="card-body">
-            <i class="fas fa-plus"></i>
+        <div class="col-lg-4">
+          <div @click="addClip" class="card card-new">
+            <div class="card-body">
+              <i class="fas fa-plus"></i> &nbsp;&nbsp;<b>Add Clip</b>
+            </div>
           </div>
         </div>
 
-
       </div>
-      
+
+      <hr>
+
+      <div v-if="clips.length > 5" class="row">
+        <div class="col">
+          Built by <a href="https://timcieplowski.com" target="_blank">Tim Cieplowski <i class="fas fa-external-link-alt"></i></a>
+        </div>
+
+        <div class="col">
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_donations" />
+            <input type="hidden" name="business" value="PQX2U7ZGU3HWC" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+            <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" /> Help keep this site running!
+          </form>
+        </div>
+      </div>
+      <br>
     </div>
   </div>
 </template>
@@ -90,8 +81,7 @@ export default {
 
   data: function() {
     return {
-      data: {},
-      clips: {},
+      clips: [],
       editingClip: {},
       gamePath: 'games/' + this.$route.params.game + '/',
       clipsJsonFile: 'https://s3.us-east-2.amazonaws.com/audio-bits-data/games/' + this.$route.params.game + '/game.json',
@@ -99,6 +89,12 @@ export default {
   },
 
   computed: {
+    data: function() {
+      return {
+        clips: this.clips
+      }
+    },
+
     revealed: function() {
       return this.clips.filter(clip => clip.show != false)
                 .map(clip => clip.mp3);
@@ -108,6 +104,12 @@ export default {
   methods: {
     updateRoute() {
       this.$router.push({query: {'revealed': this.revealed}});
+    },
+
+    showHide() {
+      let newValue = !this.clips[0].show
+      this.clips.map(clip => clip.show = newValue);
+      this.updateRoute();
     },
 
     saveClips(files) {
@@ -120,7 +122,6 @@ export default {
       if (files.lg) {
         this.uploadFile(this.gamePath + this.editingClip.mp3 + '/lg.mp3', files.lg);
       }
-
 
       // Update remote JSON.
       this.uploadFile(this.gamePath + 'game.json', JSON.stringify(this.data));
@@ -149,9 +150,6 @@ export default {
         name: "",
         notes: "",
         show: false,
-        // year: "",
-        // actor: "",
-        // director: "",
       };
 
       this.clips.push(newClip);
@@ -164,9 +162,7 @@ export default {
     // Get clips JSON.
     axios.get(this.clipsJsonFile)
       .then((response) => {
-        this.data = response.data;
-        this.clips = this.data.clips
-
+        this.clips = response.data.clips || [];
         // Set revealed clips state, from URL params.
         let initShow = _.concat([], this.$route.query.revealed);
         _.forEach(this.clips, (clip) => {
@@ -185,33 +181,31 @@ export default {
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  margin-top: 20px;
+  padding-top: 10px;
 }
 
-.fancy {
+h1 {
+  font-family: 'Teko', sans-serif;
+  font-size: 40px;
   color: white;
-  font-size: 22px;
-  font-family: 'Merriweather', serif;
-}
-
-.bits {
-  font-family: 'VT323', monospace;
-  font-size: 30px;
-  color: white;
-  background: black;
+  margin-bottom: 0;
+      padding-top: 5px;
 }
 
 .navbar {
-      padding: 0 15px 0 15px
+  padding: 0 15px 0 15px
 }
 
 .card-new {
   height: fit-content;
-  margin: 10px;
   margin-bottom: 30px;
   border: 1px solid rgba(10, 70, 0, 0.85);
   background-color: rgba(55, 130, 0, 0.18);
   cursor: pointer;
+}
+
+.card-new:hover {
+  background-color: rgba(55, 130, 0, 0.28);
 }
 
 </style>
