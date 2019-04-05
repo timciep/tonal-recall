@@ -9,17 +9,17 @@
             <div v-if="!clip.one" class="d-inline">
               <div class="btn-group" role="group" aria-label="Play clip!">
                 <button type="button" 
-                  class="btn btn-success"
+                  class="btn btn-outline-success"
                   @click="playSmall">
                   <i class="fas fa-play-circle"></i> Short
                 </button>
                 <button type="button" 
-                  class="btn btn-success"
+                  class="btn btn-outline-success"
                   @click="playMed">
                   <i class="fas fa-play-circle"></i> Med
                 </button>
                 <button type="button" 
-                  class="btn btn-success"
+                  class="btn btn-outline-success"
                   @click="playLong">
                   <i class="fas fa-play-circle"></i> Long
                 </button>
