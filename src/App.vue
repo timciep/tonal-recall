@@ -187,13 +187,13 @@ export default {
 h1 {
   font-family: 'Teko', sans-serif;
   font-size: 40px;
-  color: white;
+  color: #bd5f00;
   margin-bottom: 0;
       padding-top: 5px;
 }
 
 .navbar {
-  padding: 0 15px 0 15px
+  padding: 0 15px 0 15px;
 }
 
 .card-new {
