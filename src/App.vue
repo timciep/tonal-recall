@@ -2,13 +2,17 @@
   <div id="app">
     <div class="container-fluid">
 
+      <Loading v-if="saving"></Loading>
+
       <EditModal 
+        v-if="showEdit"
         :clip="editingClip"
         @close="(editingClip = {})"
         @save="saveClips">
       </EditModal>
 
       <nav class="navbar fixed-top navbar-light bg-dark">
+        
         <a class="navbar-brand"><h1>TONAL RECALL</h1></a>
 
         <div class="nav-item">
@@ -68,6 +72,7 @@
 <script>
 import Clip from './components/Clip.vue';
 import EditModal from './components/EditModal.vue';
+import Loading from './components/Loading.vue';
 
 const awsClient = require('./helpers/aws.js');
 const _ = require('lodash');
@@ -76,13 +81,14 @@ const axios = require('axios');
 export default {
   name: 'app',
   components: {
-    Clip, EditModal
+    Clip, EditModal, Loading
   },
 
   data: function() {
     return {
       clips: [],
       editingClip: {},
+      saving: false,
       gamePath: 'games/' + this.$route.params.game + '/',
       clipsJsonFile: 'https://s3.us-east-2.amazonaws.com/audio-bits-data/games/' + this.$route.params.game + '/game.json',
     }
@@ -98,7 +104,11 @@ export default {
     revealed: function() {
       return this.clips.filter(clip => clip.show != false)
                 .map(clip => clip.mp3);
-    }
+    },
+
+    showEdit: function() {
+      return ! _.isEmpty(this.editingClip);
+    },
   },
 
   methods: {
@@ -115,12 +125,15 @@ export default {
     saveClips(files) {
       if (files.sm) {
         this.uploadFile(this.gamePath + this.editingClip.mp3 + '/sm.mp3', files.sm);
+        this.editingClip.files.sm = true;
       }
       if (files.md) {
         this.uploadFile(this.gamePath + this.editingClip.mp3 + '/md.mp3', files.md);
+        this.editingClip.files.md = true;
       }
       if (files.lg) {
         this.uploadFile(this.gamePath + this.editingClip.mp3 + '/lg.mp3', files.lg);
+        this.editingClip.files.lg = true;
       }
 
       // Update remote JSON.
@@ -131,28 +144,37 @@ export default {
     },
 
     uploadFile(path, file) {
+      this.saving = true;
       awsClient.s3.upload({
         Key: path,
         Body: file,
         ACL: 'public-read'
-      }, function(err) {
+      }, (err) => {
         if (err) {
           console.log(err);
-          return alert('Error uploading ' + path + ': ', err.message);
+          alert('Error uploading ' + path + ': ', err.message);
         }
         console.log('Uploaded: ' + path);
+        this.saving = false;
       });
     },
 
     addClip() {
       let newClip = {
         mp3: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+        files: {
+          sm: false,
+          md: false,
+          lg: false
+        },
         name: "",
         notes: "",
         show: false,
       };
 
       this.clips.push(newClip);
+
+      this.uploadFile(this.gamePath + 'game.json', JSON.stringify(this.data));
 
       this.editingClip = newClip;
     },
@@ -187,7 +209,7 @@ export default {
 h1 {
   font-family: 'Teko', sans-serif;
   font-size: 40px;
-  color: #bd5f00;
+  color: #e67400;
   margin-bottom: 0;
       padding-top: 5px;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showModal">
+  <div>
     <transition name="modal">
       <div class="modal-mask">
         <div class="modal-wrapper">
@@ -101,8 +101,6 @@
 
 <script>
 
-var _ = require('lodash');
-
 export default {
   name: 'EditModal',
 
@@ -114,12 +112,6 @@ export default {
 
   props: {
     clip: Object
-  },
-
-  computed: {
-    showModal: function() {
-        return ! _.isEmpty(this.clip);
-    }
   },
 
   methods: {
