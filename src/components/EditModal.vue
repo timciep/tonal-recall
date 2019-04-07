@@ -2,13 +2,13 @@
   <div>
     <transition name="modal">
       <div class="modal-mask">
-        <div class="modal-wrapper">
-          <div class="modal-dialog" role="document">
+        <div @click="cancel" class="modal-wrapper">
+          <div @click.stop class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Editing: <i>{{ clip.name ? clip.name : 'New Clip' }}</i></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true" @click="$emit('close')">&times;</span>
+                <span aria-hidden="true" @click="cancel">&times;</span>
                 </button>
               </div>
 
@@ -42,6 +42,30 @@
                   <h5>Add/Replace Audio</h5>
 
                   <div class="form-group row">
+                    <label for="number" class="col-sm-2 col-form-label">Clips</label>
+                    <div class="col-sm-10">
+                      <div class="form-check form-check-inline">
+                        <input v-model="clip.style" 
+                        class="form-check-input" 
+                        type="radio" 
+                        name="style" 
+                        id="inlineRadio1" 
+                        value="single">
+                        <label class="form-check-label" for="inlineRadio1">Single</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input v-model="clip.style" 
+                        class="form-check-input" 
+                        type="radio" 
+                        name="style" 
+                        id="inlineRadio2" 
+                        value="multi">
+                        <label class="form-check-label" for="inlineRadio2">Short/Med/Long</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div v-if="clip.style == 'multi'" class="form-group row">
                       <label for="clip-sm" class="col-sm-2 col-form-label">Short</label>
                       <div class="col-sm-10">
                         <input @change="fileSm"
@@ -52,7 +76,7 @@
                       </div>
                     </div>
 
-                  <div class="form-group row">
+                  <div v-if="clip.style == 'multi'" class="form-group row">
                     <label for="clip-md" class="col-sm-2 col-form-label">Medium</label>
                     <div class="col-sm-10">
                       <input @change="fileMd"
@@ -64,7 +88,7 @@
                   </div>
 
                   <div class="form-group row">
-                    <label for="clip-lg" class="col-sm-2 col-form-label">Long</label>
+                    <label v-if="clip.style == 'multi'" for="clip-lg" class="col-sm-2 col-form-label">Long</label>
                     <div class="col-sm-10">
                       <input @change="fileLg"
                       type="file" 
@@ -80,7 +104,7 @@
               <div class="modal-footer">
                 <button type="button" 
                 class="btn btn-secondary" 
-                @click="$emit('close')">
+                @click="cancel">
                     Close
                 </button>
                 <button type="button"
@@ -124,7 +148,11 @@ export default {
     fileLg: function(event) {
       this.files.lg = event.target.files[0];
     },
-  }
+
+    cancel: function() {
+      this.$emit('close');
+    }
+  },
 
 }
 </script>

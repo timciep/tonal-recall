@@ -7,7 +7,7 @@
       <EditModal 
         v-if="showEdit"
         :clip="editingClip"
-        @close="(editingClip = {})"
+        @close="cancelEdit"
         @save="saveClips">
       </EditModal>
 
@@ -122,6 +122,16 @@ export default {
       this.updateRoute();
     },
 
+    cancelEdit() {
+      this.saveData();
+      this.editingClip = {};
+    },
+
+    saveData() {
+      // Update remote JSON.
+      this.uploadFile(this.gamePath + 'game.json', JSON.stringify(this.data));
+    },
+
     saveClips(files) {
       if (files.sm) {
         this.uploadFile(this.gamePath + this.editingClip.mp3 + '/sm.mp3', files.sm);
@@ -136,8 +146,7 @@ export default {
         this.editingClip.files.lg = true;
       }
 
-      // Update remote JSON.
-      this.uploadFile(this.gamePath + 'game.json', JSON.stringify(this.data));
+      this.saveData();
 
       // Close edit modal.
       this.editingClip = {};
@@ -165,8 +174,9 @@ export default {
         files: {
           sm: false,
           md: false,
-          lg: false
+          lg: false,
         },
+        style: "single",
         name: "",
         notes: "",
         show: false,
@@ -174,7 +184,7 @@ export default {
 
       this.clips.push(newClip);
 
-      this.uploadFile(this.gamePath + 'game.json', JSON.stringify(this.data));
+      this.saveData();
 
       this.editingClip = newClip;
     },

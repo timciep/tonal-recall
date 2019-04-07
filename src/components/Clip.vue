@@ -9,12 +9,14 @@
             <div v-if="!clip.one" class="d-inline">
               <div class="btn-group" role="group" aria-label="Play clip!">
                 <button type="button" 
+                  v-if="clip.style == 'multi'"
                   class="btn btn-outline-success"
                   @click="playSmall">
                   <i v-if="!clip.files.sm" class="fas fa-exclamation-triangle"></i>
                   <i v-if="clip.files.sm" class="fas fa-play-circle"></i> Short
                 </button>
                 <button type="button" 
+                  v-if="clip.style == 'multi'"
                   class="btn btn-outline-success"
                   @click="playMed">
                   <i v-if="!clip.files.md" class="fas fa-exclamation-triangle"></i>
@@ -24,7 +26,8 @@
                   class="btn btn-outline-success"
                   @click="playLong">
                   <i v-if="!clip.files.lg" class="fas fa-exclamation-triangle"></i>
-                  <i v-if="clip.files.lg" class="fas fa-play-circle"></i> Long
+                  <i v-if="clip.files.lg" class="fas fa-play-circle"></i> 
+                    {{ clip.style == 'multi' ? 'Long' : 'Play' }}
                 </button>
               </div>
             </div>
@@ -61,7 +64,7 @@
           </div>
           <div class="col-2">
             <button @click="$emit('edit', clip)" class="btn btn-link">
-              <i class="fas fa-edit" title="Title not set!"></i>
+              <i class="fas fa-edit"></i>
             </button>
           </div>
         </div>
@@ -70,7 +73,7 @@
         
         <h5 class="alert alert-info hide" @click="cover" v-if="clip.show">{{ clip.name }}</h5>
         <h5 class="" v-if="!clip.show">
-          <i v-if="!clip.name" class="fas fa-exclamation-triangle"></i>
+          <i v-if="!clip.name"  title="Title not set!" class="fas fa-exclamation-triangle"></i>
           <div class="btn btn-link" @click="reveal">Reveal Title</div>
         </h5>
 
