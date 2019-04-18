@@ -74,7 +74,7 @@ import Clip from './components/Clip.vue';
 import EditModal from './components/EditModal.vue';
 import Loading from './components/Loading.vue';
 
-const awsClient = require('./helpers/aws.js');
+const awsClient = require('../../helpers/aws.js');
 const _ = require('lodash');
 const axios = require('axios');
 
@@ -203,6 +203,8 @@ export default {
       })
       .catch(function (error) {
         console.log(error);
+        alert("Game not found, redirecting...");
+        window.location.href = "/";
       });
   }
      
