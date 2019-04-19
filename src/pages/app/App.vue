@@ -19,7 +19,7 @@
           <button
             @click="showHide"
             type="button" 
-            class="btn btn-secondary"
+            class="btn btn-nav"
           >Reveal/Hide All
           </button>
         </div>
@@ -49,12 +49,12 @@
 
       <hr>
 
-      <div v-if="clips.length > 5" class="row">
+      <div class="row">
         <div class="col">
           Built by <a href="https://timcieplowski.com" target="_blank">Tim Cieplowski <i class="fas fa-external-link-alt"></i></a>
         </div>
 
-        <div class="col">
+        <div v-if="clips.length > 5" class="col">
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_donations" />
             <input type="hidden" name="business" value="PQX2U7ZGU3HWC" />
@@ -240,6 +240,12 @@ h1 {
 
 .card-new:hover {
   background-color: rgba(55, 130, 0, 0.28);
+}
+
+.btn-nav {
+    color: black;
+    background-color: #e2e3e5;
+    border-color: #d6d8db;
 }
 
 </style>
