@@ -13,7 +13,7 @@
 
       <nav class="navbar fixed-top navbar-light bg-dark">
         
-        <a class="navbar-brand"><h1>TONAL RECALL</h1></a>
+        <a href="/" target="_blank" class="navbar-brand"><h1>TONAL RECALL</h1></a>
 
         <div class="nav-item">
           <button
@@ -34,7 +34,7 @@
           :key="index" 
           :clip="clip"
           @updateRevealed="updateRoute"
-          @edit="editingClip = $event">
+          @edit="startEditing($event)">
         </Clip>
 
         <div class="col-lg-4">
@@ -116,6 +116,14 @@ export default {
       this.$router.push({query: {'revealed': this.revealed}});
     },
 
+    startEditing(editClip) {
+      if (this.$route.params.game != 'example') {
+        this.editingClip = editClip
+      } else {
+        alert("Editing is disabled on Example game.");
+      }
+    },
+
     showHide() {
       let newValue = !this.clips[0].show
       this.clips.map(clip => clip.show = newValue);
@@ -129,7 +137,11 @@ export default {
 
     saveData() {
       // Update remote JSON.
-      this.uploadFile(this.gamePath + 'game.json', JSON.stringify(this.data));
+      if (this.$route.params.game != 'example') {
+        this.uploadFile(this.gamePath + 'game.json', JSON.stringify(this.data));
+      } else {
+        alert("Editing is disabled on Example game.");
+      }
     },
 
     saveClips(files) {
