@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <div class="row bg-light p-4">
+    <div class="row bg-mid p-4">
       <div class="col-lg-6">
         <div class="card mx-auto" style="width: 24rem;">
           <div class="card-body">
@@ -80,6 +80,10 @@ h1 {
 
 .bg-top {
   background-color: #343a40;
+}
+
+.bg-mid {
+  background-color: #e2e3e5;
 }
 
 .card {
