@@ -13,7 +13,7 @@
 
     <div class="row bg-mid p-4">
       <div class="col-lg-6">
-        <div class="card mx-auto" style="width: 24rem;">
+        <div class="card mx-auto">
           <div class="card-body">
             <h5 class="card-title">Open Existing Game</h5>
             <div class="form form-inline">
@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="col-lg-6">
-        <div class="card mx-auto" style="width: 24rem;">
+        <div class="card mx-auto">
           <div class="card-body">
             <h5 class="card-title">Create New Game</h5>
             <div class="form">
@@ -104,7 +104,7 @@ export default {
       let uuid = uuidv1();
 
       let file = JSON.stringify({
-        'name': uuid,
+        'code': uuid,
         'email': this.email,
         'clips': []
       });
@@ -148,6 +148,7 @@ h1 {
 
 .card {
   border: 1px solid rgba(0, 0, 0, 0.85);
+  margin-bottom: 15px;
 }
 
 .btn-outline-success {
