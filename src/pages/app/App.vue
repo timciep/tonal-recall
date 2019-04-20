@@ -54,7 +54,7 @@
           Built by <a href="https://timcieplowski.com" target="_blank">Tim Cieplowski <i class="fas fa-external-link-alt"></i></a>
         </div>
 
-        <div v-if="clips.length > 5" class="col">
+        <!-- <div v-if="clips.length > 5" class="col">
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_donations" />
             <input type="hidden" name="business" value="PQX2U7ZGU3HWC" />
@@ -62,7 +62,7 @@
             <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
             <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" /> Help keep this site running!
           </form>
-        </div>
+        </div> -->
       </div>
       <br>
     </div>
@@ -181,24 +181,28 @@ export default {
     },
 
     addClip() {
-      let newClip = {
-        mp3: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
-        files: {
-          sm: false,
-          md: false,
-          lg: false,
-        },
-        style: "single",
-        name: "",
-        notes: "",
-        show: false,
-      };
+      if (this.$route.params.game != 'example') {
+        let newClip = {
+          mp3: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+          files: {
+            sm: false,
+            md: false,
+            lg: false,
+          },
+          style: "single",
+          name: "",
+          notes: "",
+          show: false,
+        };
 
-      this.clips.push(newClip);
+        this.clips.push(newClip);
 
-      this.saveData();
+        this.saveData();
 
-      this.editingClip = newClip;
+        this.editingClip = newClip;
+      } else {
+        alert("Editing is disabled on Example game.");
+      }
     },
   },
 

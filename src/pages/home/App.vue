@@ -30,7 +30,7 @@
             </div>
             <div class="text-center">
               <hr class="m-4">
-              <a href="http://localhost:8080/app/#/example" target="_blank" 
+              <a href="http://tonalrecall.us/app/#/example" target="_blank" 
               role="button" 
               class="btn btn-outline-primary">
                 Open Example Game <i class="fas fa-external-link-alt"></i>
@@ -47,7 +47,7 @@
               <div class="form-group row">
                 <label for="email" class="col-sm-3 col-form-label">Email</label>
                 <div class="col-sm-9">
-                  <input @keyup.enter="goToGame()"
+                  <input @keyup.enter="newGame()"
                   v-model="email" 
                   type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                   <small id="emailHelp" class="form-text text-muted">For re-access code.</small>
@@ -76,6 +76,8 @@
 <script>
 const uuidv1 = require('uuid/v1');
 const awsClient = require('../../helpers/aws.js');
+// const axios = require('axios');
+import * as emailjs from 'emailjs-com';
 
 export default {
   name: 'app',
@@ -119,9 +121,25 @@ export default {
           alert('Error uploading: ', err.message);
         }
         this.code = uuid;
-        this.goToGame();
+
+        this.sendEmail();
       });
     },
+
+    sendEmail() {
+      var templateParams = {
+          code: this.code,
+          user_email: this.email
+      };
+
+      emailjs.send('gmail','template_5cTsiajE', templateParams, 'user_qAXyoJVqRteSBFxChxk0b')
+        .then((response) => {
+          console.log('SUCCESS!', response.status, response.text);
+          this.goToGame();
+        }, function(err) {
+          console.log('FAILED...', err);
+        });
+    }
 
   },
 
