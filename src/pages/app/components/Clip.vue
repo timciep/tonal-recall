@@ -66,6 +66,10 @@
             <button @click="$emit('edit', clip)" class="btn btn-link">
               <i class="fas fa-edit"></i>
             </button>
+            <br>
+            <button @click="$emit('delete', clip)" class="btn btn-link text-danger">
+              <i class="far fa-trash-alt"></i>
+            </button>
           </div>
         </div>
 
@@ -73,8 +77,8 @@
         
         <h5 class="alert alert-info hide" @click="cover" v-if="clip.show">{{ clip.name }}</h5>
         <h5 class="" v-if="!clip.show">
-          <i v-if="!clip.name"  title="Title not set!" class="fas fa-exclamation-triangle"></i>
-          <div class="btn btn-link" @click="reveal">Reveal Title</div>
+          <i v-if="!clip.name"  title="Answer not set!" class="fas fa-exclamation-triangle"></i>
+          <div class="btn btn-link" @click="reveal">Reveal Answer</div>
         </h5>
 
       </div>

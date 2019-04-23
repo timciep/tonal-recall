@@ -34,7 +34,8 @@
           :key="index" 
           :clip="clip"
           @updateRevealed="updateRoute"
-          @edit="startEditing($event)">
+          @edit="startEditing($event)"
+          @delete="deleteClip($event)">
         </Clip>
 
         <div class="col-lg-4">
@@ -204,6 +205,16 @@ export default {
         alert("Editing is disabled on Example game.");
       }
     },
+
+    deleteClip(clip) {
+      if (confirm("Are you sure?")) {
+        _.remove(this.clips, function(_clip) {
+          return _clip.mp3 == clip.mp3;
+        });
+
+        this.saveData();
+      }
+    }
   },
 
   created: function() {
