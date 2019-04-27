@@ -30,7 +30,7 @@
             </div>
             <div class="text-center">
               <hr class="m-4">
-              <a href="http://tonalrecall.us/app/#/example" target="_blank" 
+              <a href="https://tonalrecall.us/app/#/example" target="_blank" 
               role="button" 
               class="btn btn-outline-primary">
                 Open Example Game <i class="fas fa-external-link-alt"></i>
