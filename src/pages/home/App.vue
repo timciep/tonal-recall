@@ -69,6 +69,9 @@
       <div class="col">
         <p class="p-3">Built by <a href="https://timcieplowski.com" target="_blank">Tim Cieplowski <i class="fas fa-external-link-alt"></i></a></p>
       </div>
+      <div class="col">
+        <p class="p-3">Feedback: <a href="mailto:tonalrecall1@gmail.com" target="_blank">tonalrecall1@gmail.com</a></p>
+      </div>
     </div>
   </div>
 </template>
