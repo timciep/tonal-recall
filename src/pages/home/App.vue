@@ -122,6 +122,7 @@ export default {
         if (err) {
           console.log(err);
           alert('Error uploading: ', err.message);
+          this.saving = false;
         }
         this.code = uuid;
 
@@ -139,8 +140,9 @@ export default {
         .then((response) => {
           console.log('SUCCESS!', response.status, response.text);
           this.goToGame();
-        }, function(err) {
+        }, (err) => {
           console.log('FAILED...', err);
+          this.goToGame();
         });
     }
 
