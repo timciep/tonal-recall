@@ -54,7 +54,7 @@
                 </div>
               </div>
 
-              <button @click="newGame()" type="button" class="btn btn-outline-success">
+              <button @click="newGame()" type="button" class="btn btn-outline-success" :disabled="saving">
                 <i class="fas fa-plus-square"></i> Create
               </button>
             </div>
