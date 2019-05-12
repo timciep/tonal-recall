@@ -201,7 +201,8 @@ export default {
           name: "",
           notes: "",
           show: false,
-          order: _.maxBy(this.clips, 'order').order +1, // back of the line!
+          order: (typeof _.maxBy(this.clips, 'order') !== 'undefined') ?
+                    _.maxBy(this.clips, 'order').order +1 : 0, // back of the line!
         };
 
         this.clips.push(newClip);
