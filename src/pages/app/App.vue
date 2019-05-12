@@ -27,24 +27,26 @@
 
       <br><br><br>
 
-      <div class="row">
+      <div class="row clipsgrid">
 
-        <Clip 
-          v-for="(clip, index) in clips" 
-          :key="index" 
-          :clip="clip"
-          @updateRevealed="updateRoute"
-          @edit="startEditing($event)"
-          @delete="deleteClip($event)">
-        </Clip>
+        <draggable v-model="clips" @end="saveData()">
+            <Clip 
+              v-for="clip in clips" 
+              :key="clip.mp3" 
+              :clip="clip"
+              @updateRevealed="updateRoute"
+              @edit="startEditing($event)"
+              @delete="deleteClip($event)">
+            </Clip>
 
-        <div class="col-lg-4">
-          <div @click="addClip" class="card card-new">
-            <div class="card-body">
-              <i class="fas fa-plus"></i> &nbsp;&nbsp;<b>Add Clip</b>
+            <div class="col-lg-4" slot="footer">
+              <div @click="addClip" class="card card-new">
+                <div class="card-body">
+                  <i class="fas fa-plus"></i> &nbsp;&nbsp;<b>Add Clip</b>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+        </draggable>
 
       </div>
 
@@ -78,6 +80,7 @@
 import Clip from './components/Clip.vue';
 import EditModal from './components/EditModal.vue';
 import Loading from './components/Loading.vue';
+import draggable from 'vuedraggable'
 
 const awsClient = require('../../helpers/aws.js');
 const _ = require('lodash');
@@ -86,7 +89,7 @@ const axios = require('axios');
 export default {
   name: 'app',
   components: {
-    Clip, EditModal, Loading
+    Clip, EditModal, Loading, draggable
   },
 
   data: function() {
@@ -198,6 +201,7 @@ export default {
           name: "",
           notes: "",
           show: false,
+          order: _.maxBy(this.clips, 'order').order +1, // back of the line!
         };
 
         this.clips.push(newClip);
@@ -223,14 +227,24 @@ export default {
 
   created: function() {
     // Get clips JSON.
-    axios.get(this.clipsJsonFile)
+    axios.get(this.clipsJsonFile + "?" + new Date().getTime())
       .then((response) => {
         this.clips = response.data.clips || [];
-        // Set revealed clips state, from URL params.
-        let initShow = _.concat([], this.$route.query.revealed);
-        _.forEach(this.clips, (clip) => {
-          clip.show = _.includes(initShow, clip.mp3);
-        });
+
+          if (this.clips.length > 0) {
+            let initShow = _.concat([], this.$route.query.revealed);
+
+            let hasOrder = 'order' in this.clips[0];
+
+            _.forEach(this.clips, (clip, key) => {
+              clip.show = _.includes(initShow, clip.mp3);
+
+              // If the clips don't have an assigned order, apply one.
+              if (!hasOrder) {
+                clip.order = key;
+              }
+            });
+          }
       })
       .catch(function (error) {
         console.log(error);
@@ -277,6 +291,10 @@ h1 {
     color: black;
     background-color: #e2e3e5;
     border-color: #d6d8db;
+}
+
+div.clipsgrid > div {
+  display: contents;
 }
 
 </style>

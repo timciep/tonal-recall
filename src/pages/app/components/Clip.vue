@@ -228,4 +228,8 @@ h5.alert {
   opacity: .7;
 }
 
+.card-body {
+  cursor: grab;
+}
+
 </style>

@@ -102,11 +102,6 @@
               </div>
 
               <div class="modal-footer">
-                <button type="button" 
-                class="btn btn-secondary" 
-                @click="cancel">
-                    Close
-                </button>
                 <button type="button"
                 class="btn btn-primary"
                 @click="$emit('save', files)">
@@ -177,4 +172,8 @@ export default {
   vertical-align: middle;
 }
 
+.modal-body {
+    max-height: calc(100vh - 143px);
+    overflow-y: auto;
+}
 </style>
