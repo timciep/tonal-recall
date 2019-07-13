@@ -6,6 +6,8 @@
         <div class="row">
           <div class="col">
 
+            <div class="handle"><i class="fas fa-grip-vertical"></i></div>
+
             <div v-if="!clip.one" class="d-inline">
               <div class="btn-group" role="group" aria-label="Play clip!">
                 <button type="button" 
@@ -228,8 +230,17 @@ h5.alert {
   opacity: .7;
 }
 
-.card-body {
+/* .card-body {
   cursor: grab;
+} */
+
+.handle {
+  cursor: move;
+	cursor: -webkit-grabbing;
+  position: absolute;
+  right: 0px;
+  top: -16px;
+  color: grey;
 }
 
 </style>

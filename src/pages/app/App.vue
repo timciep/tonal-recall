@@ -29,7 +29,7 @@
 
       <div class="row clipsgrid">
 
-        <draggable v-model="clips" @end="saveData()">
+        <draggable v-model="clips" @end="saveData()" handle=".handle">
             <Clip 
               v-for="clip in clips" 
               :key="clip.mp3" 
@@ -38,16 +38,17 @@
               @edit="startEditing($event)"
               @delete="deleteClip($event)">
             </Clip>
+        </draggable>
 
-            <div class="col-lg-4" slot="footer">
+        <div>
+          <div class="col-lg-4">
               <div @click="addClip" class="card card-new">
                 <div class="card-body">
                   <i class="fas fa-plus"></i> &nbsp;&nbsp;<b>Add Clip</b>
                 </div>
               </div>
             </div>
-        </draggable>
-
+        </div>
       </div>
 
       <hr>
