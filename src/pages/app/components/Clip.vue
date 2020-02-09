@@ -153,16 +153,18 @@ export default {
         this.playing = false;
       });
 
-      this.sound.on('loaderror', () => {
+      this.sound.on('loaderror', (id, message) => {
         this.playing = false;
         this.clip.files[size] = false;
-        alert('Mp3 file does not exist.');
+        console.log(message);
+        alert('Error loading file: ' + message);
       });
 
-      this.sound.on('playerror', () => {
+      this.sound.on('playerror', (id, message) => {
         this.playing = false;
         this.clip.files[size] = false;
-        alert('Error playing Mp3 file.');
+        console.log(message);
+        alert('Error playing file: ' + message);
       });
     },
 
