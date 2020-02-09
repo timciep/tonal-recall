@@ -39,7 +39,11 @@
 
                   <hr>
 
-                  <h5>Add/Replace Audio</h5>
+                  <h5>
+                    Add/Replace Audio
+                    <br>
+                    <small class="text-muted">File(s) must be playable, in your browser.</small>
+                  </h5>
 
                   <div class="form-group row">
                     <label for="number" class="col-sm-2 col-form-label">Clips</label>
