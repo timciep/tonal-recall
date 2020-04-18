@@ -12,7 +12,6 @@
       </EditModal>
 
       <nav class="navbar fixed-top navbar-light bg-dark">
-        
         <a href="/" target="_blank" class="navbar-brand"><h1>TONAL RECALL</h1></a>
 
         <div class="nav-item">
@@ -20,12 +19,28 @@
             @click="showHide"
             type="button" 
             class="btn btn-nav"
-          >Reveal/Hide All
-          </button>
+          >Reveal/Hide All</button>
         </div>
       </nav>
 
       <br><br><br>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Game Title"
+            v-model="title"
+            @keyup.enter="saveData">
+            <div class="input-group-append">
+              <button class="btn btn-outline-primary" type="button"
+              @click="saveData">
+                <i class="fas fa-save"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <div class="row clipsgrid">
 
@@ -95,6 +110,7 @@ export default {
 
   data: function() {
     return {
+      title: '',
       clips: [],
       editingClip: {},
       saving: false,
@@ -106,6 +122,7 @@ export default {
   computed: {
     data: function() {
       return {
+        title: this.title,
         clips: this.clips
       }
     },
@@ -231,7 +248,10 @@ export default {
     // Get clips JSON.
     axios.get(this.clipsJsonFile + "?" + new Date().getTime())
       .then((response) => {
-        this.clips = response.data.clips || [];
+          this.title = response.data.hasOwnProperty('title') ? response.data.title : '';
+          document.title = document.title + ' - ' + this.title;
+
+          this.clips = response.data.clips || [];
 
           if (this.clips.length > 0) {
             let initShow = _.concat([], this.$route.query.revealed);
