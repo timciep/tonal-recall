@@ -199,6 +199,12 @@ export default {
       }, (err) => {
         if (err) {
           console.log(err);
+
+          window.gtag('event', 'file_upload_fail', {
+            'event_category': 'error',
+            'event_label': err.message
+          });
+          
           alert('Error uploading ' + path + ': ', err.message);
         }
         console.log('Uploaded: ' + path);

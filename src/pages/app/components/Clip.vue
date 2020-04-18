@@ -157,6 +157,12 @@ export default {
         this.playing = false;
         this.clip.files[size] = false;
         console.log(message);
+
+        window.gtag('event', 'file_load_fail', {
+          'event_category': 'error',
+          'event_label': message
+        });
+
         alert('Error loading file: ' + message);
       });
 
@@ -164,6 +170,12 @@ export default {
         this.playing = false;
         this.clip.files[size] = false;
         console.log(message);
+
+        window.gtag('event', 'file_play_fail', {
+          'event_category': 'error',
+          'event_label': message
+        });
+
         alert('Error playing file: ' + message);
       });
     },
