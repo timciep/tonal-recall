@@ -16,7 +16,9 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'UA-136811350-1');
+      gtag('config', 'UA-136811350-1', {
+        page_location: window.location.pathname + window.location.hash
+      });
     </script>
   </head>
   <body>
