@@ -1,4 +1,6 @@
-# dialogue-bits
+# Tonal Recall
+
+https://tonalrecall.us/
 
 ## Project setup
 ```
@@ -25,5 +27,3 @@ npm run test
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
