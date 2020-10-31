@@ -45,9 +45,7 @@
             </div>
 
             <div v-if="this.loading" class="btn-group" role="group" aria-label="Loading...">
-              <button type="button" 
-                class="btn btn-outline-info"
-                @click="stop">
+              <button type="button" class="btn btn-outline-info" style="cursor: wait;">
                 <i class="fas fa-spinner fa-spin"></i>
               </button>
             </div>
