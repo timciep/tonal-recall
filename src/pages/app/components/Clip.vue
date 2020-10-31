@@ -44,6 +44,14 @@
               </div>
             </div>
 
+            <div v-if="this.loading" class="btn-group" role="group" aria-label="Loading...">
+              <button type="button" 
+                class="btn btn-outline-info"
+                @click="stop">
+                <i class="fas fa-spinner fa-spin"></i>
+              </button>
+            </div>
+
             <div v-if="this.playing" class="btn-group" role="group" aria-label="Stop!">
               <button type="button" 
                 class="btn btn-danger"
@@ -97,6 +105,7 @@ export default {
   data: function() {
     return {
       sound: {},
+      loading: false,
       playing: false,
       mp3Path: 'https://s3.us-east-2.amazonaws.com/audio-bits-data/games/'
                 + this.$route.params.game + '/'
@@ -135,7 +144,7 @@ export default {
     },
 
     playSound: function(path, size) {
-      this.playing = true;
+      this.loading = true;
 
       if (this.sound instanceof Howl) {
         this.sound.stop();
@@ -149,11 +158,18 @@ export default {
 
       this.sound.play();
 
+      this.sound.on('play', () => {
+        this.loading = false;
+        this.playing = true;
+      });
+
       this.sound.on('end', () => {
+        this.loading = false;
         this.playing = false;
       });
 
       this.sound.on('loaderror', (id, message) => {
+        this.loading = false;
         this.playing = false;
         this.clip.files[size] = false;
         console.log(message);
@@ -167,6 +183,7 @@ export default {
       });
 
       this.sound.on('playerror', (id, message) => {
+        this.loading = false;
         this.playing = false;
         this.clip.files[size] = false;
         console.log(message);
@@ -182,6 +199,7 @@ export default {
 
     stop: function() {
       this.sound.stop();
+      this.loading = false;
       this.playing = false;
     }
   },
