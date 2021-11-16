@@ -9,7 +9,7 @@
     "deploy": "vue-cli-service build && aws s3 sync dist/ s3://tonalrecall.us"
   },
   "dependencies": {
-    "aws-sdk": "^2.453.0",
+    "aws-sdk": "^2.814.0",
     "axios": "^0.18.0",
     "emailjs-com": "^2.3.2",
     "howler": "^2.1.2",
