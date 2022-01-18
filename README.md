@@ -1,6 +1,8 @@
 # Tonal Recall
 
-https://tonalrecall.us/
+An audio-clip guessing-game builder.
+
+Live site: https://tonalrecall.us/
 
 ## Project setup
 ```
@@ -16,14 +18,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
