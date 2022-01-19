@@ -4,6 +4,8 @@ An audio-clip guessing-game builder.
 
 Live site: https://tonalrecall.us/
 
+[Blog post about this project](https://www.timcieplowski.com/blog/tonal-recall/).
+
 ## Project setup
 ```
 npm install
