@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="icon" href="/favicon.ico">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Teko" rel="stylesheet">
@@ -19,6 +19,8 @@
       gtag('config', 'UA-136811350-1', {
         page_location: window.location.pathname + window.location.hash
       });
+
+      window.global = window;
     </script>
   </head>
   <body>
@@ -27,8 +29,7 @@
     </noscript>
     <div id="app"></div>
 
-    
+    <script type="module" src="/src/pages/home/main.js"></script>
       
-    <!-- built files will be auto injected -->
   </body>
 </html>
