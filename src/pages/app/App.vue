@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" style="margin-bottom: 50px;">
     <div class="container-fluid">
 
       <Loading v-if="saving"></Loading>
@@ -254,7 +254,7 @@ export default {
     // Get clips JSON.
     axios.get(this.clipsJsonFile + "?" + new Date().getTime())
       .then((response) => {
-          this.title = response.data.hasOwnProperty('title') ? response.data.title : '';
+          this.title = Object.prototype.hasOwnProperty.call(response.data, 'title') ? response.data.title : '';
           document.title = document.title + ' - ' + this.title;
 
           this.clips = response.data.clips || [];

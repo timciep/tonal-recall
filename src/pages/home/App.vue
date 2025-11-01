@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid" style="margin-bottom: 50px;">
     <div class="row bg-top">
       <div class="col-lg-12 text-center">
         <h1 class="mt-3">TONAL RECALL</h1>
@@ -50,7 +50,7 @@
                   <input @keyup.enter="newGame()"
                   v-model="email" 
                   type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                  <small id="emailHelp" class="form-text text-muted">For re-access code.</small>
+                  <small id="emailHelp" class="form-text text-muted">(optional) For re-access code to be sent to.</small>
                 </div>
               </div>
 
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-const uuidv1 = require('uuid/v1');
+import { v4 as uuidv4 } from 'uuid';
 const awsClient = require('../../helpers/aws.js');
 // const axios = require('axios');
 import * as emailjs from 'emailjs-com';
@@ -106,7 +106,7 @@ export default {
     newGame() {
       this.saving = true;
 
-      let uuid = uuidv1();
+      let uuid = uuidv4();
 
       let file = JSON.stringify({
         'code': uuid,
